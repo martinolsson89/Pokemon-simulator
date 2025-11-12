@@ -4,7 +4,7 @@ public abstract class Pokemon
 {
     private string _name;
     private int _level;
-    protected readonly List<Attack> Attacks;
+    private readonly List<Attack> _attacks;
 
     public string Name
     {
@@ -33,8 +33,8 @@ public abstract class Pokemon
 
     protected Pokemon(string name, int level, List<Attack> attacks)
     {
-        Attacks = attacks ?? throw new ArgumentNullException(nameof(attacks), "Attacks-listan får inte vara null.");
-        if (!Attacks.Any())
+        _attacks = attacks ?? throw new ArgumentNullException(nameof(attacks), "Attacks-listan får inte vara null.");
+        if (!_attacks.Any())
             throw new ArgumentException("En Pokémon måste känna till minst en attack.", nameof(attacks));
 
         Name = name;
