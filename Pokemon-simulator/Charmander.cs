@@ -1,3 +1,5 @@
+using Spectre.Console;
+
 namespace Pokemon_simulator;
 
 public class Charmander : FirePokemon, IEvolvable
@@ -9,15 +11,21 @@ public class Charmander : FirePokemon, IEvolvable
 
     public override void Attack()
     {
-        Console.WriteLine($"[{GetType().Name}] Attack override executed.");
+        AnsiConsole.MarkupLine("[yellow][[Charmander override]] Attack()[/]");
         RandomAttack();
     }
 
     public void Evolve()
     {
         var old = Name;
-        Level += 10;
-        Name = "Charmeleon";
-        Console.WriteLine($"{old} is evolving... Now it is a {Name} and its level is {Level}\n");
+        AnsiConsole.Status()
+            .Start("[yellow]Evolving...[/]", ctx =>
+            {
+                Thread.Sleep(900);
+                Level += 10;
+                Name = "Charmeleon";
+            });
+
+        AnsiConsole.MarkupLine($"{old} is evolving... Now it is a [bold]{Name}[/] and its level is [bold]{Level}[/]");
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Pokemon_simulator;
+﻿using Spectre.Console;
+
+namespace Pokemon_simulator;
 
 public abstract class Pokemon
 {
@@ -50,44 +52,31 @@ public abstract class Pokemon
         int index = rnd.Next(0, _attacks.Count);
         var attack = _attacks[index];
 
-        Console.Write($"{Name} used: ");
+        AnsiConsole.MarkupLine($"[grey]{Name} used[/] [bold]{attack.Name}[/]!");
         attack.Use(Level);
     }
 
     public virtual void Attack()
     {
-        Console.WriteLine($"\nChoose an attack for {Name}:");
-        for (int i = 0; i < _attacks.Count; i++)
-        {
-            Console.WriteLine($"  {i + 1}. {_attacks[i].Name} ({_attacks[i].Type}, {_attacks[i].BasePower} base)");
-        }
+        var selected = AnsiConsole.Prompt(
+        new SelectionPrompt<Attack>()
+            .Title($"[bold yellow]Choose {Name}'s attack[/]")
+            .PageSize(10)
+            .MoreChoicesText("[grey](Move up/down to see more)[/]")
+            .UseConverter(a => $"{a.Name} [grey]({a.Type}, {a.BasePower} base)[/]")
+            .AddChoices(_attacks));
 
-        while (true)
-        {
-            Console.Write("Enter number: ");
-            var input = Console.ReadLine();
-
-            if (int.TryParse(input, out int choice))
-            {
-                int index = choice - 1;
-                if (index >= 0 && index < _attacks.Count)
-                {
-                    var selected = _attacks[index];
-                    Console.Write($"\n{Name} used ");
-                    selected.Use(Level);
-                    break;
-                }
-            }
-
-            Console.WriteLine("Invalid choice. Try again.");
-        }
+        AnsiConsole.MarkupLine($"\n[grey]{Name} used[/] [bold]{selected.Name}[/]!");
+        selected.Use(Level);
     }
 
     public void RaiseLevel()
     {
         Level += 1;
-        Console.WriteLine($"{Name} leveled up to {Level}!\n");
+        AnsiConsole.MarkupLine($"[green]{Name} leveled up to {Level}![/]");
     }
+
+    public IReadOnlyList<Attack> KnownAttacks() => _attacks;
 
 }
 

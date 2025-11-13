@@ -22,7 +22,7 @@ public class Attack
         init
         {
             if (value < 1)
-                throw new ArgumentException("BasePower must be ≥ 1.", nameof(BasePower));
+                throw new ArgumentOutOfRangeException("BasePower must be ≥ 1.", nameof(BasePower));
 
             _basepower = value;
         }
