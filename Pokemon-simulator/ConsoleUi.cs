@@ -70,7 +70,7 @@ public static class ConsoleUi
                 Markup.Escape(p.Name),
                 ColorizeType(p.Type),
                 p.Level.ToString(),
-                p.KnownAttacks().Count.ToString());
+                p.AttackCount.ToString());
 
 
         AnsiConsole.Write(table);

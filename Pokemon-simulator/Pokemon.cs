@@ -7,6 +7,7 @@ public abstract class Pokemon
     private string _name = string.Empty;
     private int _level;
     private readonly List<Attack> _attacks;
+    public int AttackCount => _attacks.Count;
 
     public string Name
     {
@@ -76,7 +77,7 @@ public abstract class Pokemon
         AnsiConsole.MarkupLine($"[green]{Name} leveled up to {Level}![/]");
     }
 
-    public IReadOnlyList<Attack> KnownAttacks() => _attacks;
+    public IEnumerable<Attack> KnownAttacks() => _attacks.ToArray();
 
 }
 
