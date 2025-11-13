@@ -2,9 +2,32 @@
 
 public class Attack
 {
-    public string Name { get; init; }
+
+    private string _name = string.Empty;
+    private int _basepower;
+    public string Name
+    {
+        get => _name;
+        init
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Length < 2 || value.Length > 20)
+                throw new ArgumentException("Name must be 2–20 characters.", nameof(Name));
+
+            _name = value;
+        }
+    }
+    public int BasePower
+    {
+        get => _basepower;
+        init
+        {
+            if (value < 1)
+                throw new ArgumentException("BasePower must be ≥ 1.", nameof(BasePower));
+
+            _basepower = value;
+        }
+    }
     public ElementType Type { get; init; }
-    public int BasePower { get; init; }
 
     public Attack(string name, ElementType type, int basePower)
     {
@@ -16,8 +39,6 @@ public class Attack
 
     public void Use(int level)
     {
-        // TODO: Den ska skriva ut ett meddelande till konsolen som t.ex.:
-        // Flamethrower hit with a total power of 13
-        // Där 13 är BasePower + level
+        Console.WriteLine($"{Name} hit with a total power of {BasePower + level}\n");
     }
 }

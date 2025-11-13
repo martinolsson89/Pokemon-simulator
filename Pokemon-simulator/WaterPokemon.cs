@@ -2,7 +2,7 @@
 
 public abstract class WaterPokemon : Pokemon
 {
-    protected WaterPokemon(string name, int level, List<Attack> attacks)
+    protected WaterPokemon(string name, int level, IEnumerable<Attack> attacks)
         : base(name, level, attacks)
     {
         Type = ElementType.Water;

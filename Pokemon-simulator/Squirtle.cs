@@ -2,8 +2,8 @@ namespace Pokemon_simulator;
 
 public class Squirtle : WaterPokemon
 {
-    public Squirtle(int level, List<Attack> attacks)
-        : base("Squirtle", level, attacks)
+    public Squirtle(string name, int level, IEnumerable<Attack> attacks)
+        : base(name, level, attacks)
     {
     }
 }
