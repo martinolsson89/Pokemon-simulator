@@ -16,13 +16,16 @@ public class Program
             {
                 Console.WriteLine($"{attack.Name} (Type: {attack.Type}, Basepower: {attack.BasePower})");
             }
+
             Console.WriteLine();
+
             Console.WriteLine("=== Your Pokémon Team ===\n");
             foreach (var p in pokemons)
             {
                 Console.WriteLine($"{p.Name} (Level: {p.Level}, Type: {p.Type})");
             }
 
+            Console.WriteLine();
 
             Console.WriteLine("=== Simulating traning ===\n");
             foreach (var pokemon in pokemons)
